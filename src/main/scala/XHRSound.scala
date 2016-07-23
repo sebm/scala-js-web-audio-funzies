@@ -1,16 +1,13 @@
 package tutorial.webapp
 
 import org.scalajs.dom._
+import org.scalajs.dom.ext.Ajax
 
 import scala.scalajs.js.typedarray.ArrayBuffer
 
 class XHRSound(url: String) {
-  val xhr = new XMLHttpRequest
-  xhr.responseType = "arraybuffer"
-
-  xhr.open("GET", url)
-
-  xhr.onload = { (e: Event) =>
+  
+  Ajax.get(url).onSuccess { case xhr =>
     if (xhr.status == 200) {
       val audioData = xhr.response.asInstanceOf[ArrayBuffer]
 
@@ -26,6 +23,4 @@ class XHRSound(url: String) {
       })
     }
   }
-
-  xhr.send()
 }
