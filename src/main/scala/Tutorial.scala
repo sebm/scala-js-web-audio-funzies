@@ -6,5 +6,6 @@ object TutorialApp extends JSApp {
 
   def main(): Unit = {
     val amen = new XHRSound("https://sebm.github.io/squrt/amen.mp3")
+    amen.play()
   }
 }
