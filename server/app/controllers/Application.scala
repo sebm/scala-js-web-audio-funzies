@@ -7,7 +7,7 @@ import shared.SharedMessages
 class Application()(implicit environment: Environment) extends Controller {
 
   def index = Action {
-    Ok(views.html.index(SharedMessages.itWorks))
+    Ok(views.html.index())
   }
 
 }
