@@ -1,4 +1,4 @@
-package tutorial.webapp
+package sounds
 
 import org.scalajs.dom._
 import org.scalajs.dom.ext.Ajax
