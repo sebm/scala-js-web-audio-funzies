@@ -9,6 +9,9 @@ object ScalaJSExample extends js.JSApp {
   def main(): Unit = {
     val amen = new XHRSound("assets/audio/amen.mp3")
 
-    amen.play()
+    // The instrument shouldn't have to deal with its sequencing
+    // The instrument should expose its slices such that they can be played from this outer context
+
+    amen.playBySlices()
   }
 }

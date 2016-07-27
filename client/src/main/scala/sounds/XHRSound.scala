@@ -20,14 +20,55 @@ class XHRSound(url: String) {
     }
   }
 
+  val length: Future[Double] = {
+    audioBuffer.map { buffer => buffer.duration }
+  }
+
   def play(): Unit = {
+    val source = context.createBufferSource()
+
     audioBuffer.map { buffer =>
-      val source = context.createBufferSource()
       source.buffer = buffer
       source.connect(context.destination)
 
       source.start()
     }
+  }
+
+  @deprecated
+  def playSliceAtIndex(i: Int, slices: Int): Unit = {
+    val source = context.createBufferSource()
+
+    audioBuffer.map { buffer =>
+      val sliceDuration = buffer.duration / slices
+
+      source.buffer = buffer
+      source.connect(context.destination)
+
+      source.start(0, sliceDuration*(i+1), sliceDuration)
+
+    }
+  }
+
+  @deprecated
+  def playBySlices(): Unit = {
+    val slices = 16
+
+    audioBuffer.map { buffer =>
+      val sliceDuration = buffer.duration / slices
+
+      val now = context.currentTime
+
+      (0 to slices-1).foreach { i =>
+        println(i)
+        val source = context.createBufferSource()
+        source.buffer = buffer
+        source.connect(context.destination)
+
+        source.start(now + sliceDuration*i , sliceDuration*i, sliceDuration )
+      }
+    }
+
   }
 
 }
